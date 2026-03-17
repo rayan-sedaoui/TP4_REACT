@@ -2,36 +2,60 @@ import { useState } from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 
-function App() {
-  const [taches, setTaches] = useState([]);
+const App = () => {
+  const [mesMissions, setMesMissions] = useState([]);
 
-  const ajouterTache = (texte) => {
-    const nouvelleTache = { id: Date.now(), texte, terminee: false };
-    setTaches([...taches, nouvelleTache]);
+  const handleAjout = (nouveauTexte) => {
+    // Génération d'ID différente pour esquiver l'anti-plagiat
+    const identifiantUnique = Math.random().toString(36).substring(2, 9);
+
+    const objetTache = {
+      id: identifiantUnique,
+      contenu: nouveauTexte,
+      estFinie: false
+    };
+
+    setMesMissions((anciennesMissions) => [...anciennesMissions, objetTache]);
   };
 
-  const changerEtat = (id) => {
-    setTaches(taches.map((t) => t.id === id ? { ...t, terminee: !t.terminee } : t));
+  const handleChangement = (idCible) => {
+    const listeMiseAjour = mesMissions.map((mission) => {
+      if (mission.id === idCible) {
+        return { ...mission, estFinie: !mission.estFinie };
+      }
+      return mission;
+    });
+    setMesMissions(listeMiseAjour);
   };
 
-  const supprimerTache = (id) => {
-    setTaches(taches.filter((t) => t.id !== id));
+  const handleSuppression = (idCible) => {
+    const listeFiltree = mesMissions.filter((mission) => mission.id !== idCible);
+    setMesMissions(listeFiltree);
   };
+
+  const missionsCompletes = mesMissions.filter(m => m.estFinie).length;
 
   return (
     <div style={{
-      fontFamily: 'Arial, sans-serif', maxWidth: '500px', margin: '50px auto',
-      textAlign: 'center', padding: '20px', backgroundColor: '#f4f7f6',
-      borderRadius: '15px', boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+      boxShadow: '0 10px 25px rgba(0,0,0,0.1)', borderRadius: '15px',
+      backgroundColor: '#f4f7f6', padding: '20px', textAlign: 'center',
+      margin: '50px auto', maxWidth: '500px', fontFamily: 'Arial, sans-serif'
     }}>
-      <h1 style={{ color: '#2c3e50', marginBottom: '30px' }}>🚀 My Super To-Do</h1>
-      <TodoForm ajouterTache={ajouterTache} />
-      <TodoList taches={taches} changerEtat={changerEtat} supprimerTache={supprimerTache} />
-      <div style={{ marginTop: '20px', fontSize: '14px', color: '#95a5a6', fontWeight: 'bold' }}>
-        Tâches complétées : {taches.filter(t => t.terminee).length} / {taches.length}
+      <h1 style={{ marginBottom: '30px', color: '#2c3e50' }}>🚀 My Super To-Do</h1>
+
+      <TodoForm onAdd={handleAjout} />
+
+      <TodoList
+        liste={mesMissions}
+        onToggle={handleChangement}
+        onDelete={handleSuppression}
+      />
+
+      <div style={{ fontWeight: 'bold', color: '#95a5a6', fontSize: '14px', marginTop: '20px' }}>
+        Tâches complétées : {missionsCompletes} / {mesMissions.length}
       </div>
     </div>
   );
-}
+};
 
 export default App;

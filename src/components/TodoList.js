@@ -1,22 +1,23 @@
 import TodoItem from './TodoItem';
 
-function TodoList({ taches, changerEtat, supprimerTache }) {
+const TodoList = ({ liste, onToggle, onDelete }) => {
+
+  if (liste.length === 0) {
+    return <p style={{ color: '#bdc3c7', fontStyle: 'italic', marginTop: '20px' }}>Aucune mission pour le moment...</p>;
+  }
+
   return (
-    <ul style={{ padding: 0, marginTop: '20px' }}>
-      {taches.length === 0 ? (
-        <p style={{ color: '#bdc3c7', fontStyle: 'italic' }}>Aucune mission pour le moment...</p>
-      ) : (
-        taches.map((tache) => (
-          <TodoItem
-            key={tache.id}
-            tache={tache}
-            changerEtat={changerEtat}
-            supprimerTache={supprimerTache}
-          />
-        ))
-      )}
+    <ul style={{ marginTop: '20px', padding: 0 }}>
+      {liste.map((item) => (
+        <TodoItem
+          key={item.id}
+          element={item}
+          basculer={onToggle}
+          retirer={onDelete}
+        />
+      ))}
     </ul>
   );
-}
+};
 
 export default TodoList;

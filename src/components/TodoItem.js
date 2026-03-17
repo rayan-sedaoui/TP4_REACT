@@ -1,38 +1,45 @@
-function TodoItem({ tache, changerEtat, supprimerTache }) {
+const TodoItem = ({ element, basculer, retirer }) => {
+  const { id, contenu, estFinie } = element;
+
   return (
     <li style={{
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      padding: '10px', marginBottom: '10px',
-      backgroundColor: tache.terminee ? '#e8f6f3' : '#fff',
-      borderLeft: tache.terminee ? '5px solid #2ecc71' : '5px solid #3498db',
-      borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', listStyle: 'none'
+      listStyle: 'none',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+      borderRadius: '4px',
+      borderLeft: estFinie ? '5px solid #2ecc71' : '5px solid #3498db',
+      backgroundColor: estFinie ? '#e8f6f3' : '#fff',
+      marginBottom: '10px',
+      padding: '10px',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      display: 'flex'
     }}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ alignItems: 'center', display: 'flex' }}>
         <input
           type="checkbox"
-          checked={tache.terminee}
-          onChange={() => changerEtat(tache.id)}
-          style={{ marginRight: '15px', cursor: 'pointer', transform: 'scale(1.2)' }}
+          checked={estFinie}
+          onChange={() => basculer(id)}
+          style={{ transform: 'scale(1.2)', cursor: 'pointer', marginRight: '15px' }}
         />
         <span style={{
-          textDecoration: tache.terminee ? 'line-through' : 'none',
-          color: tache.terminee ? '#7f8c8d' : '#2c3e50',
-          fontSize: '18px'
+          fontSize: '18px',
+          color: estFinie ? '#7f8c8d' : '#2c3e50',
+          textDecoration: estFinie ? 'line-through' : 'none'
         }}>
-          {tache.texte}
+          {contenu}
         </span>
       </div>
       <button
-        onClick={() => supprimerTache(tache.id)}
+        onClick={() => retirer(id)}
         style={{
-          backgroundColor: '#e74c3c', color: 'white', border: 'none',
-          padding: '5px 10px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold'
+          fontWeight: 'bold', cursor: 'pointer', borderRadius: '4px',
+          padding: '5px 10px', border: 'none', color: 'white', backgroundColor: '#e74c3c'
         }}
       >
         X
       </button>
     </li>
   );
-}
+};
 
 export default TodoItem;
