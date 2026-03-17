@@ -5,7 +5,8 @@ Bienvenue sur le dépôt de mon quatrième TP en React ! Ce projet est une appli
 ##  Aperçu du projet
 
 
-<img width="442" height="1012" alt="Screenshot 2026-03-17 200338" src="https://github.com/user-attachments/assets/924afed2-afa5-47dd-b449-bc607455f598" />
+<img width="665" height="343" alt="Screenshot 2026-03-17 195619" src="https://github.com/user-attachments/assets/d0297a61-63af-41d6-bc54-f20a0c8660bd" />
+
 
 <img width="900" height="740" alt="Screenshot 2026-03-17 200152" src="https://github.com/user-attachments/assets/43fb6bae-cf0d-44dc-aa48-db67de6aaa48" />
 
